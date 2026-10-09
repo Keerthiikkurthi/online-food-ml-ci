@@ -1,0 +1,52 @@
+name: Online Food ML CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  train-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install ML dependencies
+        run: pip install -r requirements.txt
+
+      - name: Train online food model
+        run: python train_model.py
+
+      - name: Check ML quality gate
+        run: python quality_gate.py
+
+      - name: Run automated ML tests
+        run: python -m unittest discover -v
+
+      - name: Upload validated ML artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: online-food-ml-artifacts
+          path: |
+            online_food_model.pkl
+            metrics.json
+            test_predictions.csv
+          if-no-files-found: error
+          retention-days: 7
