@@ -44,7 +44,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: online-food-ml-artifacts
-       path: |
-         online_food_model_missing.pkl
-         metrics_missing.json
-         test_predictions_missing.csv
+          path: |
+            online_food_model_missing.pkl
+            metrics_missing.json
+            test_predictions_missing.csv
+          if-no-files-found: error
+          retention-days: 7
