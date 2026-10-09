@@ -45,7 +45,7 @@ jobs:
         with:
           name: online-food-ml-artifacts
           path: |
-            online_food_model.pkl
+            online_food_model_missing.pkl
             metrics.json
             test_predictions.csv
           if-no-files-found: error
