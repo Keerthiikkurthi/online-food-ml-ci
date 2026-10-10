@@ -50,6 +50,8 @@ jobs:
           cp online_food_model.pkl release_candidate/
           cp metrics.json release_candidate/
           cp requirements.txt release_candidate/
+          cp Dockerfile release_candidate/
+          cp .dockerignore release_candidate/
           printf "Online Food Reorder Prediction ML Application\nRun: python app.py\nEndpoint: POST /predict\n" > release_candidate/DEPLOYMENT.txt
 
       - name: Upload release candidate
@@ -59,6 +61,7 @@ jobs:
           path: release_candidate/
           if-no-files-found: error
           retention-days: 7
+          include-hidden-files: true
 
       - name: Upload validated ML artifacts
         uses: actions/upload-artifact@v4
