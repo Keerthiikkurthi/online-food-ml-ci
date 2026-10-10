@@ -1,7 +1,7 @@
 import json
 import sys
 
-THRESHOLD = 0.80
+THRESHOLD = 0.99
 
 with open("metrics.json") as file:
     metrics = json.load(file)
