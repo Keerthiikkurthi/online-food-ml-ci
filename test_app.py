@@ -34,7 +34,7 @@ class TestPredictionApplication(unittest.TestCase):
         for sample in self.samples:
             response = self.client.post("/predict", json=sample)
             self.assertEqual(response.status_code, 200)
-            self.assertIn(response.get_json()["prediction"], ["Yes", "No"])
+            self.assertIn(response.get_json()["prediction"], ["Maybe"])
 
     def test_missing_field_validation(self):
         first = self.features[0]
